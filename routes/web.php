@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,33 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//route that sends back a view
-Route::get('/', function () {
-    return view('welcome');
-});
+//Laravel 8 (New) - best
+Route::get('/products', [ProductsController::class, 'index']);
+Route::get('/products/about', [ProductsController::class, 'about']);
 
-//route to users - string
-Route::get('users', function () {
-    return "Welcome to the users page";
-});
+//Laravel 8 (Also new)
+Route::get('/products', 'App\Http\Controllers\ProductsController@index');
 
-//route to users - Array (convertet automated to json)
-Route::get("/users", function(){
-    return ["PHP", "HTML", "Laravel"];
-});
-
-//route to users - JSON object
-Route::get("/users", function(){
-    return response()->json([
-        'name' => 'Ioan',
-        'age' => 35,
-    ]);
-});
-
-//route to users - function
-Route::get("/users", function(){
-    return redirect('/');
-});
-
-//site.com == /
-//site.com/users == /users
+//Before laravel 8
+//Route::get('/products', 'ProductsController@index');
